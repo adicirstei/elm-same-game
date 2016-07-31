@@ -3,27 +3,35 @@ module View exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
-import Types exposing (Game(..), Board, Column, Stone(..), Event(..))
+import Types exposing (Game(..), Board, Column, Stone(..), Event(..), GameState)
 import Maybe
 
+type alias CssColor = String
 
+
+
+gameOver : Board -> GameState -> Html Event
 gameOver board state =
-  text <| toString state
+  div [] [ text <| toString state ]
 
-colors = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#00FFFF", "#FF00FF"]
+colors : List CssColor
+colors = ["#FF0000", "rgb(52, 156, 36)", "rgb(45, 45, 153)", "#fcfc00", "rgb(9, 201, 201)", "#FF00FF"]
 
+
+color : Int -> CssColor
 color idx =
   colors
   |> List.drop idx
   |> List.head
   |> Maybe.withDefault "#000000"
 
-
+statusBar : GameState -> Html Event
 statusBar state =
   div [ style [("clear", "left"), ("background", "grey")] ] [ text "Score :", text <| toString state.score]
 
+controls : Html Event
 controls =
-  div [] [ button [onClick Restart] [text "NewGame"] ]
+  div [ style [("clear", "left"), ("float", "left")]] [ button [onClick Restart] [text "NewGame"] ]
 
 board : Board -> Html Event
 board b =
