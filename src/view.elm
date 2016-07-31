@@ -36,18 +36,22 @@ controls =
 board : Board -> Html Event
 board b =
   div
-    [ style [("width", "420px"), ("height", "420px"), ("float", "left")] ] (List.map column b)
+    [ style [("width", "420px"), ("height", "420px"), ("float", "left")] ] (List.indexedMap column b)
 
-column : Column -> Html Event
-column c =
-  div
-    [ style [("height", "420px"), ("float", "left")] ] (List.map stone c)
+column : Int -> Column -> Html Event
+column i c =
+  let cStone = stone i
+  in
+    div
+      [ style [("height", "420px"), ("float", "left")] ] (List.indexedMap cStone c)
 
-stone : Stone -> Html Event
-stone (Color idx) =
+stone : Int -> Int -> Stone -> Html Event
+stone c r (Color idx) =
   div
-    [ style [("width", "24px"), ("height", "24px"), ("background", color idx), ("border", "solid 1px white")] ]
+    [ style [("width", "24px"), ("height", "24px"), ("background", color idx), ("border", "solid 1px white")]
+    , onClick (StoneClicked c r)]
     []
+
 
 view : Game -> Html Event
 view game =

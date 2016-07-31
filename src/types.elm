@@ -18,3 +18,4 @@ type Event
   = Wait
   | Restart
   | NewGame Board
+  | StoneClicked Int Int 
