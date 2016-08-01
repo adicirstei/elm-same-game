@@ -11,7 +11,6 @@ subscriptions : Types.Game -> Sub Types.Event
 subscriptions m
   = Sub.none
 
-
 main = App.program
   { init = State.init
   , subscriptions = subscriptions

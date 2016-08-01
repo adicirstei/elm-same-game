@@ -1,18 +1,42 @@
-module State exposing (init, update)
+{-module State exposing (init, update)-}
 
-import Types exposing (Game, Event(..))
+module State exposing(..)
+
+
+import Types exposing (Game, Event(..), Board, Column)
 import Random exposing (generate)
 import Random.Board exposing (..)
+import List.Extra as List
+
+
 
 init : ( Types.Game, Cmd Types.Event )
 init = Types.StartingGame ! [Random.generate NewGame board]
+
+augmentBoard : Board -> Types.AugmentedBoard
+augmentBoard b =
+  b |> List.indexedMap (\colIdx col -> List.indexedMap (\rowIdx (Types.Color v) -> ((colIdx, rowIdx), v)) col)
+
+
+--
+-- getGroup : Board -> (Int,Int) -> Array (Int, Int)
+-- getGroup b (c, r) = Array.fromList [(c, r)]
+--
+
+collectCol : Types.AugmentedStone -> Types.AugmentedColumn -> List Types.Position
+collectCol ((c, r), val) col =
+  (List.takeLeft (\ (_, v) -> v == val) (List.take r col)
+   |> List.map (\ (p, _) -> p))
+   ++  [(c,r)]
+
+
+
 
 makeMove : Game -> Int -> Int -> Game
 makeMove m c r =
   case m of
     Types.GameInProgress (b, s) ->
-      let
-        col = 
+      m
     _ -> m
 
 
