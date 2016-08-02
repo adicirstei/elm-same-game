@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "watch": "chokidar 'src/**/*.elm' -c 'elm-make src/same.elm --output public/index.html'"
+    "watch": "elm-live src/same.elm --open"
   },
   "devDependencies": {
-    "chokidar-cli": "^1.2.0"
+    "elm-live": "^2.4.1"
   }
 }
