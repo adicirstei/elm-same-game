@@ -22,12 +22,6 @@ augmentBoard : Board -> Types.AugmentedBoard
 augmentBoard b =
   b |> List.indexedMap (\colIdx col -> List.indexedMap (\rowIdx (Types.Color v) -> ((colIdx, rowIdx), v)) col)
 
-
---
--- getGroup : Board -> (Int,Int) -> Array (Int, Int)
--- getGroup b (c, r) = Array.fromList [(c, r)]
---
-
 collectCol : Types.AugmentedStone -> Types.AugmentedColumn -> List Types.Position
 collectCol ((c, r), val) col =
   let
